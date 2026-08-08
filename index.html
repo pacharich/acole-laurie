@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>モデル候補リスト｜アコールローリエ 様 ご提案資料</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ====== Nav ====== -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-mark">PashaRich<span class="brand-jp">パシャリッチ</span></span>
+      <span class="brand-sub">キャスティング提案書 ／ 2026年8月版</span>
+    </div>
+    <nav class="nav-links">
+      <a class="nav-link" href="#female"><span class="num">01</span>新婦役候補</a>
+      <a class="nav-link" href="#male"><span class="num">02</span>新郎役候補</a>
+    </nav>
+    <button class="nav-cta">
+      <span class="dot"></span>
+      アコールローリエ 様
+    </button>
+  </div>
+</header>
+
+<!-- ====== Hero ====== -->
+<section class="hero">
+  <div>
+    <p class="hero-eyebrow">キャスティング候補一覧 ／ アコールローリエ様（千葉県柏市） ／ 2026年8月版</p>
+    <h1 class="hero-title" style="font-size:clamp(36px,5vw,72px)">
+      モデル候補<br>リスト<br>
+      <span class="small">アコールローリエ 様<br>キャスティング候補者提案となります。</span>
+    </h1>
+  </div>
+</section>
+
+<!-- ====== Models ====== -->
+<section class="section">
+  <div class="section-head" style="align-items:flex-end">
+    <div>
+      <div class="section-num">キャスティング候補一覧 ／ アコールローリエ様 ／ 2026年8月版</div>
+      <h2 class="section-title">モデル<em>候補</em></h2>
+    </div>
+    <div class="section-tail">全 8 名</div>
+  </div>
+
+  <!-- 新婦役 -->
+  <div class="gender-block" id="female">
+    <div class="gender-head">
+      <span class="gender-badge">新婦役</span>
+      <span class="gender-count">4 名</span>
+    </div>
+    <div id="gridFemale" class="grid"></div>
+  </div>
+
+  <!-- 新郎役 -->
+  <div class="gender-block" id="male" style="margin-top:56px">
+    <div class="gender-head">
+      <span class="gender-badge">新郎役</span>
+      <span class="gender-count">4 名</span>
+    </div>
+    <div id="gridMale" class="grid"></div>
+  </div>
+</section>
+
+<!-- ====== Footer ====== -->
+<footer>
+  <div class="foot">
+    <div>
+      <div class="foot-brand">PashaRich</div>
+      <p class="foot-tag">広告・Web・出版分野のキャスティングをワンストップでサポート。<br>
+      本提案資料は アコールローリエ 様向けに作成された機密資料です。</p>
+    </div>
+    <div class="foot-col">
+      <h4>案件</h4>
+      <p>アコールローリエ 様</p>
+      <p>キャスティング提案 2026</p>
+    </div>
+    <div class="foot-col" style="color:rgb(123,123,130);font-size:12.5px">
+      <h4>運営元</h4>
+      <p>株式会社ワールドチェンジアナリシス</p>
+    </div>
+    <div class="foot-col">
+      <h4>ステータス</h4>
+      <p style="color:var(--accent)">● 選考受付中</p>
+      <p>2026年8月版</p>
+      <p>機密資料</p>
+    </div>
+  </div>
+  <div class="foot-row">
+    <span>© 2026 PashaRich — アコールローリエ 様向け 機密提案資料</span>
+    <span>2026年8月</span>
+  </div>
+</footer>
+
+<!-- ====== Lightbox ====== -->
+<div class="lb" id="lb" role="dialog" aria-modal="true">
+  <div class="lb-inner">
+    <div class="lb-top">
+      <div class="lb-id" id="lbId"><span class="accent">新婦役01</span></div>
+      <div class="lb-actions">
+        <button class="lb-close" id="lbClose" aria-label="閉じる">✕</button>
+      </div>
+    </div>
+    <div class="lb-body">
+      <div class="lb-gallery">
+        <div class="lb-main" id="lbMain"></div>
+        <div class="lb-strip" id="lbStrip"></div>
+      </div>
+      <div class="lb-info">
+        <div class="lb-name-row">
+          <h2 class="lb-name" id="lbName">スカイ <span class="age">28歳</span></h2>
+          <p class="lb-loc" id="lbLoc">東京都</p>
+        </div>
+
+        <div class="specs">
+          <div class="spec">
+            <div class="spec-l">身長</div>
+            <div class="spec-v"><span id="lbHeight">160</span><span class="u" id="lbHeightUnit">cm</span></div>
+          </div>
+          <div class="spec">
+            <div class="spec-l">年齢</div>
+            <div class="spec-v"><span id="lbAge">28</span><span class="u" id="lbAgeUnit">歳</span></div>
+          </div>
+          <div class="spec">
+            <div class="spec-l">サイズ</div>
+            <div class="spec-v size" id="lbSize">B 78 / W 58 / H 86</div>
+          </div>
+          <div class="spec" id="specShoe">
+            <div class="spec-l">シューズ</div>
+            <div class="spec-v"><span id="lbShoe">23.5cm</span></div>
+          </div>
+          <div class="spec" id="specExp">
+            <div class="spec-l">芸歴</div>
+            <div class="spec-v"><span id="lbExp">7年</span></div>
+          </div>
+          <div class="spec">
+            <div class="spec-l">在住地</div>
+            <div class="spec-v loc" id="lbLocSpec">東京都</div>
+          </div>
+          <div class="spec" id="specHair" style="display:none">
+            <div class="spec-l">ヘアカラー</div>
+            <div class="spec-v"><span id="lbHair"></span></div>
+          </div>
+          <div class="spec" id="specEye" style="display:none">
+            <div class="spec-l">瞳カラー</div>
+            <div class="spec-v"><span id="lbEye"></span></div>
+          </div>
+          <div class="spec" id="specClothes" style="display:none">
+            <div class="spec-l">お洋服サイズ</div>
+            <div class="spec-v"><span id="lbClothes"></span></div>
+          </div>
+        </div>
+
+        <!-- 出演可能日 -->
+        <div class="lb-schedule" id="lbSchedule">
+          <div class="lb-schedule-label">SCHEDULE</div>
+          <div class="lb-schedule-title">出演可能日</div>
+          <div class="lb-schedule-cards" id="lbScheduleCards"></div>
+        </div>
+
+        <!-- 実績 -->
+        <div class="lb-achievements" id="lbAchievements">
+          <div class="lb-ach-title" id="lbAchTitle">活動実績</div>
+          <ul class="lb-ach-list" id="lbAchList"></ul>
+        </div>
+
+        <div class="lb-actions-bottom">
+          <button class="lb-btn" id="lbPrev"><span style="font-family:var(--mono)">←</span> 前のモデル</button>
+          <button class="lb-btn" id="lbNext">次のモデル <span style="font-family:var(--mono)">→</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="lb-bottom">
+      <span class="lb-hint">操作：<kbd>←</kbd><kbd>→</kbd> モデル切替 ／ <kbd>↑</kbd><kbd>↓</kbd> 写真切替 ／ <kbd>Esc</kbd> 閉じる</span>
+      <span class="lb-hint">サムネイルをクリックで写真切替</span>
+    </div>
+  </div>
+</div>
+
+<script src="photos.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
