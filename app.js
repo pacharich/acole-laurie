@@ -51,10 +51,12 @@ const FEMALES = [
       { title: 'CM', items: ['ソフトバンク', 'HONDA（web）', 'GungHo'] },
       { title: 'MV', items: ['ASIAN KUNG-FU GENERATION「オペラグラス」／バレリーナ'] },
       { title: 'ブライダルモデル', items: ['THE TOAI'] },
-      { title: 'SNS縦長ショート広告', items: [
-        'サモエドカフェ moffu', '舞子スノーリゾート', '東京ドームホテル', 'EPSON',
-        '南島原・天草 観光PR動画', 'KG高等学園', '鍛高譚／合同酒精' ] },
-      { title: 'SNSショートドラマ', items: ['僕らの恋はかくれんぼ。', '金融女子が沼すぎる!?'] }
+      { title: 'SNS広告', items: [
+        'ハップアール', 'EPSON', 'サモエドカフェ moffu', '舞子スノーリゾート',
+        'アパマンショップ 信濃土地', '珈琲倶楽部', 'KG高等学園', '東京ドームホテル',
+        'アゲルキャリア', '鍛高譚／合同酒精', '牛たん とろろ 麦めし ねぎし', '蒲田矯正歯科' ] },
+      { title: 'SNSショートドラマ', items: [
+        '僕らの恋はかくれんぼ。', '金融女子が沼すぎる!?', '株式会社 World Change Analysis' ] }
     ]
   },
   {
@@ -131,7 +133,17 @@ const FEMALES = [
     height: 155, size: NA, shoe: null, exp: NA, location: '埼玉県',
     extra: [['体重', '42kg']],
     achievementTitle: '実績',
-    achievements: ['ces wedding', 'Enn wedding', 'Ksmily', 'nouvelle Photo wedding']
+    achievementSections: [
+      { title: 'ブライダル', items: ['ces wedding', 'Enn wedding', 'Ksmily', 'nouvelle Photo wedding'] },
+      { title: 'サロンモデル実績', items: ['2025年 サロンモデルランキング 第1位'] },
+      { title: '出演・美容企業', items: [
+        'ReFa（MTG株式会社）', '日本ロレアル株式会社', 'クオレ株式会社', '株式会社クレイツ',
+        '株式会社アトリエはるか', '株式会社ホテラバ', 'Aiロボティクス株式会社', '品川美容外科' ] },
+      { title: 'アパレル', items: [
+        '3rd株式会社', 'Olu.株式会社', '株式会社パル', '株式会社マージナルドット', 'MIIA', 'LEJA' ] },
+      { title: '雑誌・メディア', items: [
+        'CLASSY.', 'Oggi', '美的', 'ar', 'WWD', 'リアルオーダーヘアブック（表紙）' ] }
+    ]
   },
   {
     id: 'yui', name: 'ゆい', age: PLACEHOLDER,
@@ -143,6 +155,7 @@ const FEMALES = [
     height: 160, size: 'B 78cm / W 58cm / H 86cm',
     shoe: '23.5cm', clothesSize: 'ドレス 5〜7号／指輪 8号', exp: 6, location: '東京都↔大阪府（大阪府出身）',
     extra: [['体重', '44kg']],
+    cardNote: '千葉エリア式場のSNS（Instagramリール）出演歴あり。競合につき、要ご確認',
     achievementTitle: 'モデル活動実績',
     achievementSections: [
       { title: 'ブライダルモデル活動実績', items: [
@@ -158,7 +171,10 @@ const FEMALES = [
         'PREPPY 雑誌掲載／SAVVY 雑誌掲載／リアルオーダーヘアブック 雑誌掲載多数',
         'ホットペッパービューティー 雑誌掲載多数',
         'メルセデスベンツ広告／眼鏡市場広告／SANGO株式会社 企業PV',
-        'ソフィーナ／ナリス／ジョンセンムル／松風／VO5／MEDULLA 等' ] }
+        'ソフィーナ／ナリス／ジョンセンムル／松風／VO5／MEDULLA 等' ] },
+      { title: '【競合に関する確認事項】', items: [
+        'スカイ様は、千葉エリアの結婚式場「ラセーヌブランシュ千葉」様のInstagramリール投稿にご出演歴がございます。',
+        '広告としての正式なご起用ではなく、SNS投稿（リール）のみでのご出演となるため、御社の競合条件（直近5年以内・対象エリア内）に該当するかどうかは、恐れ入りますが貴社にてご判断いただけますと幸いです。' ] }
     ]
   }
 ];
@@ -221,7 +237,7 @@ const MALES = [
     ]
   },
   {
-    id: 'ryan', name: 'ライアン', age: NA,
+    id: 'ryan', name: 'ライアン', age: 30,
     height: 175, size: 'B 82cm / W 73cm / H 89cm',
     shoe: '27.0cm', clothesSize: 'タキシード Y帯6号／A帯4号', exp: NA,
     location: '東京都世田谷区（埼玉県出身）',
@@ -327,8 +343,8 @@ function buildCard(m, i, gender) {
       <div class="card-loc">${m.location}</div>
       <div class="card-stat">
         <span><span class="l">身長</span>${heightDisp(m.height)}</span>
-        <span><span class="l">芸歴</span>${expDisp(m.exp)}</span>
       </div>
+      ${m.cardNote ? `<div class="card-note">${m.cardNote}</div>` : ''}
     </div>
   `;
   card.addEventListener('click', () => {
