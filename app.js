@@ -207,6 +207,7 @@ const MALES = [
     id: 'kouki', name: 'こうき', age: 33,
     height: 177, size: NA, shoe: null, exp: NA, location: NA,
     extra: [['体重', '63kg']],
+    videos: ['https://youtu.be/_-4Ro4mtW78', 'https://youtu.be/QlNe1Jcnwg8'],
     achievementTitle: '実績',
     achievementSections: [
       { title: '実績【ブライダル】', items: [
@@ -231,6 +232,7 @@ const MALES = [
     height: 176, size: 'B 84cm / W 81cm / H 95cm',
     shoe: '27.0cm', clothesSize: 'Y5', exp: NA, location: '横浜市',
     extra: [['体重', '63kg'], ['利き手', '右']],
+    videos: ['https://youtu.be/ZIatl18JlfY', 'https://youtube.com/shorts/3U0tXYeB5jQ'],
     achievementTitle: '実績',
     achievementSections: [
       { title: 'サイズ詳細', items: [
@@ -264,6 +266,7 @@ const MALES = [
     shoe: '27.0cm', clothesSize: 'タキシード Y帯6号／A帯4号', exp: NA,
     location: '東京都世田谷区（埼玉県出身）',
     extra: [['体重', '60kg']],
+    videos: ['https://youtu.be/0o1BMCykjuk', 'https://youtube.com/shorts/8U4CFIeBLLo'],
     achievementTitle: '実績',
     achievementSections: [
       { title: 'サイズ詳細', items: [
