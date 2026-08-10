@@ -171,11 +171,15 @@ const FEMALES = [
         'PREPPY 雑誌掲載／SAVVY 雑誌掲載／リアルオーダーヘアブック 雑誌掲載多数',
         'ホットペッパービューティー 雑誌掲載多数',
         'メルセデスベンツ広告／眼鏡市場広告／SANGO株式会社 企業PV',
-        'ソフィーナ／ナリス／ジョンセンムル／松風／VO5／MEDULLA 等' ] },
-      { title: '【競合に関する確認事項】', items: [
+        'ソフィーナ／ナリス／ジョンセンムル／松風／VO5／MEDULLA 等' ] }
+    ],
+    warning: {
+      title: '競合に関する確認事項',
+      body: [
         'スカイ様は、千葉エリアの結婚式場「ラセーヌブランシュ千葉」様のInstagramリール投稿にご出演歴がございます。',
-        '広告としての正式なご起用ではなく、SNS投稿（リール）のみでのご出演となるため、御社の競合条件（直近5年以内・対象エリア内）に該当するかどうかは、恐れ入りますが貴社にてご判断いただけますと幸いです。' ] }
-    ]
+        '広告としての正式なご起用ではなく、SNS投稿（リール）のみでのご出演となるため、御社の競合条件（直近5年以内・対象エリア内）に該当するかどうかは、恐れ入りますが貴社にてご判断いただけますと幸いです。'
+      ]
+    }
   }
 ];
 
@@ -475,6 +479,22 @@ function renderLightbox() {
     const noteHtml = m.achievementNote ? `<li class="ach-note">${m.achievementNote}</li>` : '';
     $('#lbAchList').innerHTML = noteHtml + m.achievements.map(a => `<li>${a}</li>`).join('');
   } else { achSection.style.display = 'none'; }
+
+  // 競合などの注意事項（枠で強調）
+  document.querySelectorAll('.lb-warning-box').forEach(e => e.remove());
+  if (m.warning) {
+    const box = document.createElement('div');
+    box.className = 'lb-warning-box';
+    box.style.cssText = 'margin-top:22px;padding:16px 18px;border:1.5px solid var(--accent);border-radius:8px;background:rgba(196,69,45,.14);';
+    box.innerHTML =
+      `<div style="display:flex;align-items:center;gap:8px;font-weight:700;color:#ff9b86;font-size:13px;letter-spacing:.03em;margin-bottom:10px;">
+         <span style="flex-shrink:0;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;">!</span>
+         ${m.warning.title}
+       </div>` +
+      m.warning.body.map(t => `<p style="margin:0 0 8px;font-size:12px;line-height:1.75;color:rgba(255,255,255,.88);">${t}</p>`).join('');
+    const btns = document.querySelector('.lb-actions-bottom');
+    btns.parentNode.insertBefore(box, btns);
+  }
 
   $('#lbPrev').disabled = lbIdx === 0;
   $('#lbNext').disabled = lbIdx === lbList.length - 1;
