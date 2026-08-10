@@ -80,7 +80,7 @@ const FEMALES = [
     ]
   },
   {
-    id: 'nakamura', name: 'エリカ（中村恵利華）', age: 26,
+    id: 'nakamura', name: 'エリカ', age: 26,
     height: 163.5, size: 'B 79cm / W 60cm / H 86cm',
     shoe: '24.0cm', clothesSize: '7号', hairColor: 'ロング・ダークブラウン',
     exp: NA, location: '東京都',
@@ -182,7 +182,7 @@ const FEMALES = [
 // 新郎役モデル（PDF「アコールローリエ 撮影候補モデル資料（新郎役）」準拠）
 const MALES = [
   {
-    id: 'kouki', name: 'こうき（岡山幸樹）', age: 33,
+    id: 'kouki', name: 'こうき', age: 33,
     height: 177, size: NA, shoe: null, exp: NA, location: NA,
     extra: [['体重', '63kg']],
     achievementTitle: '実績',
@@ -205,7 +205,7 @@ const MALES = [
     ]
   },
   {
-    id: 'ryoma', name: 'りょうま（Ryoma）', age: 30,
+    id: 'ryoma', name: 'りょうま', age: 30,
     height: 176, size: 'B 84cm / W 81cm / H 95cm',
     shoe: '27.0cm', clothesSize: 'Y5', exp: NA, location: '横浜市',
     extra: [['体重', '63kg'], ['利き手', '右']],
@@ -261,7 +261,7 @@ const MALES = [
     ]
   },
   {
-    id: 'ogawa', name: 'ゆうき（小川友暉）', age: 28,
+    id: 'ogawa', name: 'ゆうき', age: 28,
     height: 181, size: 'B 84.5cm / W 79cm / H 93cm',
     shoe: '27.5cm', exp: NA, location: '東京都（福岡県北九州出身）',
     extra: [['体重', '64kg']],
