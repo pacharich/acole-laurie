@@ -290,6 +290,7 @@ const MALES = [
     height: 181, size: 'B 84.5cm / W 79cm / H 93cm',
     shoe: '27.5cm', exp: NA, location: '東京都（福岡県北九州出身）',
     extra: [['体重', '64kg']],
+    videos: ['https://youtu.be/F12WBgknh8Q', 'https://youtu.be/1PL2Ap-vFMo'],
     achievementTitle: '実績',
     achievementSections: [
       { title: '実績【広告】（すべてメインキャスト出演）', items: [
