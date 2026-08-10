@@ -433,8 +433,7 @@ function renderLightbox() {
   if (m.shoe) { specShoe.style.display = ''; $('#lbShoe').textContent = m.shoe; }
   else { specShoe.style.display = 'none'; }
 
-  $('#specExp').style.display = '';
-  $('#lbExp').textContent = expDisp(m.exp);
+  $('#specExp').style.display = 'none';
 
   const specHair = $('#specHair'), specEye = $('#specEye'), specClothes = $('#specClothes');
   if (m.hairColor) { specHair.style.display = ''; $('#lbHair').textContent = m.hairColor; } else { specHair.style.display = 'none'; }
