@@ -14,6 +14,7 @@ const FEMALES = [
     height: 153, size: 'B 82cm / W 55cm / H 86cm',
     shoe: '22.5cm', exp: NA, location: '東京都（石川県出身）',
     extra: [['体重', '47kg']],
+    videos: ['https://youtube.com/shorts/A7apU18DWgU', 'https://youtu.be/SeRlnOSx54k'],
     achievementTitle: '出演経歴・実績',
     achievementSections: [
       { title: '出演経歴', items: [
@@ -146,9 +147,18 @@ const FEMALES = [
     ]
   },
   {
-    id: 'yui', name: 'ゆい', age: PLACEHOLDER,
-    height: 157, size: PLACEHOLDER, shoe: null, exp: PLACEHOLDER, location: PLACEHOLDER,
-    achievementTitle: '実績', achievements: ['プロフィール・実績は回答待ち（追って共有予定）']
+    id: 'yui', name: 'ゆい', age: 26,
+    height: 157.8, size: NA, shoe: null, exp: NA, location: '東京都板橋区',
+    extra: [['体重', '43kg']],
+    achievementTitle: '出演実績',
+    achievements: [
+      'CanCam兼andGIRL 読者モデル', '東京プリンスホテル様／SNS広告', 'オーマイティース様／SNS広告',
+      '株式会社タップル様／SNS広告', 'JR東海様／SNS広告', '長谷工ジョブクリエイト様／SNS広告・LP・HP',
+      'しまむら様／SNS広告・紙チラシ・店頭POP', '東京カレンダー様／SNS広告', 'nouvelle様／SNS広告',
+      'ディープラス様／SNS広告', '3rd inc.様／SNS広告・LP', 'HBL様／SNS広告・LP',
+      '花王様（suisai）／SNS広告・ドンキホーテサイネージ・LP', 'ルミネ様／SNS広告', 'シャドテン様／SNS広告',
+      'freee様／SNS広告', 'PATRIC様／SNS広告', 'ユンス様／SNS広告', 'ロペピクニック様／SNS広告', 'オルビス様／SNS広告'
+    ]
   },
   {
     id: 'sky', name: 'スカイ', age: 26,
@@ -313,6 +323,10 @@ function getPhotos(m) {
 }
 function photoSrc(photo) { return 'data:image/jpeg;base64,' + photo.b64; }
 
+function ytId(url) {
+  const m = String(url).match(/(?:shorts\/|youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : '';
+}
 function heightDisp(h) { return typeof h === 'number' ? h + 'cm' : h; }
 function ageDisp(a)    { return typeof a === 'number' ? a + '歳' : a; }
 function expDisp(e)    { return typeof e === 'number' ? e + '年' : (e != null ? e : '—'); }
@@ -453,6 +467,28 @@ function renderLightbox() {
     d.innerHTML = `<div class="spec-l">${label}</div><div class="spec-v">${val}</div>`;
     specsBox.appendChild(d);
   });
+
+  // イメージ動画（体重＝specsの直後に表示）
+  document.querySelectorAll('.lb-videos').forEach(e => e.remove());
+  if (m.videos && m.videos.length) {
+    const box = document.createElement('div');
+    box.className = 'lb-videos';
+    box.style.cssText = 'margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);';
+    box.innerHTML =
+      '<div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);margin-bottom:12px;text-transform:uppercase;font-weight:600;">MOVIE ／ イメージ動画</div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:12px;">' +
+      m.videos.map(u => {
+        const id = ytId(u);
+        return `<div style="position:relative;width:200px;max-width:100%;aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#000;">
+          <iframe src="https://www.youtube.com/embed/${id}" title="イメージ動画" loading="lazy"
+            allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen
+            style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+        </div>`;
+      }).join('') +
+      '</div>';
+    const specsEl = document.querySelector('.specs');
+    specsEl.parentNode.insertBefore(box, specsEl.nextSibling);
+  }
 
   const avail = AVAILABILITY[m.id] || [];
   const schedSection = $('#lbSchedule');
