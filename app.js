@@ -35,6 +35,7 @@ const FEMALES = [
     height: 154, size: 'B 77cm / W 55cm / H 80cm',
     shoe: '22.5cm', hairColor: 'ナチュラルブラウン', exp: NA, location: '東京都（千葉県出身）',
     extra: [['体重', '40kg'], ['運転免許', 'あり']],
+    videos: ['https://youtube.com/shorts/f3myIYxLkAc', 'https://youtube.com/shorts/QnyfSmSqNGI'],
     achievementTitle: '主な出演作',
     achievementSections: [
       { title: 'ドラマ', items: [
@@ -64,6 +65,7 @@ const FEMALES = [
     id: 'kano', name: 'カノ', age: 29,
     height: 157, size: 'B 70cm / W 55cm / H 82cm',
     shoe: '23.0cm', exp: NA, location: '大阪府（愛知県出身）',
+    videos: ['https://youtube.com/shorts/fiuGWI2qCCU'],
     achievementTitle: '主な出演歴・実績',
     achievementSections: [
       { title: 'ブライダル', items: [
@@ -86,6 +88,7 @@ const FEMALES = [
     shoe: '24.0cm', clothesSize: '7号', hairColor: 'ロング・ダークブラウン',
     exp: NA, location: '東京都',
     extra: [['爪・ピアス', '素爪・ピアスなし']],
+    videos: ['https://youtube.com/shorts/DDm8oxg6PaY'],
     achievementTitle: '出演実績',
     achievementSections: [
       { title: 'ブライダル', items: [
@@ -115,6 +118,7 @@ const FEMALES = [
     height: 160, size: 'B 70cm / W 68cm / H 88cm',
     shoe: '24.0cm', clothesSize: 'ドレス 5・6号', exp: NA, location: '大阪府',
     extra: [['ピアス', '穴なし']],
+    videos: ['https://youtube.com/shorts/QnJi3DEleG8'],
     achievementTitle: 'ブライダル実績',
     achievements: [
       '【2024年】ポップコーン神戸／オルガブランカ（展示会モデル）／ラヴァンセーヌ／アンテリーベ／309wedding／nestbythesea／レイジーシンデレラ',
@@ -126,6 +130,7 @@ const FEMALES = [
     id: 'yurina', name: 'ゆりな', age: 24,
     height: 168, size: NA, shoe: null, exp: NA, location: '東京都（兵庫県神戸市出身）',
     extra: [['体重', '45kg']],
+    videos: ['https://youtu.be/anvPe6D9MTY'],
     achievementTitle: '実績',
     achievements: ['wabiwasou', 'platinum dress style', 'studio arc', 'faccie ウェディング', 'FORTE BRIDAL']
   },
@@ -133,6 +138,7 @@ const FEMALES = [
     id: 'fumika', name: 'ふみか', age: 25,
     height: 155, size: NA, shoe: null, exp: NA, location: '埼玉県',
     extra: [['体重', '42kg']],
+    videos: ['https://youtu.be/UM0SxTm6XkQ'],
     achievementTitle: '実績',
     achievementSections: [
       { title: 'ブライダル', items: ['ces wedding', 'Enn wedding', 'Ksmily', 'nouvelle Photo wedding'] },
@@ -150,6 +156,7 @@ const FEMALES = [
     id: 'yui', name: 'ゆい', age: 26,
     height: 157.8, size: NA, shoe: null, exp: NA, location: '東京都板橋区',
     extra: [['体重', '43kg']],
+    videos: ['https://youtube.com/shorts/flXNOUvtkCw'],
     achievementTitle: '出演実績',
     achievements: [
       'CanCam兼andGIRL 読者モデル', '東京プリンスホテル様／SNS広告', 'オーマイティース様／SNS広告',
@@ -165,6 +172,7 @@ const FEMALES = [
     height: 160, size: 'B 78cm / W 58cm / H 86cm',
     shoe: '23.5cm', clothesSize: 'ドレス 5〜7号／指輪 8号', exp: 6, location: '東京都↔大阪府（大阪府出身）',
     extra: [['体重', '44kg']],
+    videos: ['https://youtube.com/shorts/9WUzupRon0I'],
     cardNote: '千葉エリア式場のSNS（Instagramリール）出演歴あり。競合につき、要ご確認',
     achievementTitle: 'モデル活動実績',
     achievementSections: [
