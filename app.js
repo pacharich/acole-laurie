@@ -1,6 +1,5 @@
 // ============ 出演可能日 ============
-// 候補日が確定したら SCHEDULE_DATES に日付を追加し、
-// AVAILABILITY にモデルごとの出欠（'ok' | 'ng' | 'pending'）を入れると自動表示されます。
+// 全モデル 9/8・9/9 両日／前泊・中日泊対応可（ヒーロー部に共通表示）
 const SCHEDULE_DATES = [];
 const AVAILABILITY = {};
 
@@ -8,12 +7,13 @@ const PLACEHOLDER = '情報待ち';
 const NA = '—';
 
 // ============ Model Data ============
-// 新婦役モデル（PDF「アコールローリエ 撮影候補モデル資料（新婦役）」準拠）
+// 新婦役モデル（PDF「アコールローリエ 撮影候補モデル資料（新婦役）」＋追加提供分）
 const FEMALES = [
   {
     id: 'mio', name: 'ミオ', age: 33,
     height: 153, size: 'B 82cm / W 55cm / H 86cm',
     shoe: '22.5cm', exp: NA, location: '東京都（石川県出身）',
+    extra: [['体重', '47kg']],
     achievementTitle: '出演経歴・実績',
     achievementSections: [
       { title: '出演経歴', items: [
@@ -31,20 +31,30 @@ const FEMALES = [
   },
   {
     id: 'maika', name: 'マイカ', age: 29,
-    height: 154, size: NA,
-    shoe: '22.5cm', exp: NA, location: '東京都（千葉県出身）',
-    achievementTitle: '出演歴',
+    height: 154, size: 'B 77cm / W 55cm / H 80cm',
+    shoe: '22.5cm', hairColor: 'ナチュラルブラウン', exp: NA, location: '東京都（千葉県出身）',
+    extra: [['体重', '40kg'], ['運転免許', 'あり']],
+    achievementTitle: '主な出演作',
     achievementSections: [
       { title: 'ドラマ', items: [
-        'CX 月9「5→9 私に恋したお坊さん」', 'EX「ハケン占い師アタル」',
-        'TX「牙狼-GARO- 魔戒烈伝」' ] },
+        'CX 月9「5→9 私に恋したお坊さん」／レギュラー生徒役',
+        'NTV系 深夜ドラマ「ザンビ」',
+        'EX「ハケン占い師アタル」',
+        'TX「牙狼-GARO- 魔戒烈伝」／ヒバナ役' ] },
+      { title: '映画', items: [
+        '「トモダチゲーム」／花宮満役', '「海にうかぶ月」／平田美希役',
+        '「志乃ちゃんは自分の名前が言えない」', '「友だちのパパがすき」／友人役' ] },
       { title: 'バラエティ', items: [
-        'CX「痛快TVスカッとジャパン」4度出演', 'TOKAIケーブルネットワーク',
-        '「田中律子の旅するSUP」2年レギュラー', '「直撃！シンソウ坂上」' ] },
-      { title: '映画', items: ['トモダチゲーム', '海にうかぶ月', '志乃ちゃんは自分の名前が言えない', '友だちのパパがすき'] },
-      { title: 'CM', items: ['ソフトバンク', 'HONDA（Web）', 'GungHo'] },
-      { title: '舞台', items: ['「-Knights- アーサー王と円卓の騎士」2年連続'] },
-      { title: 'MV', items: ['ASIAN KUNG-FU GENERATION「オペラグラス」'] }
+        'CX「痛快TVスカッとジャパン」4度出演',
+        '「直撃！シンソウ坂上」〜日航123便からのメッセージ・33年目の真相〜／田淵満役' ] },
+      { title: '舞台', items: ['「-Knights- アーサー王と円卓の騎士」／ニムエ役　2年連続'] },
+      { title: 'CM', items: ['ソフトバンク', 'HONDA（web）', 'GungHo'] },
+      { title: 'MV', items: ['ASIAN KUNG-FU GENERATION「オペラグラス」／バレリーナ'] },
+      { title: 'ブライダルモデル', items: ['THE TOAI'] },
+      { title: 'SNS縦長ショート広告', items: [
+        'サモエドカフェ moffu', '舞子スノーリゾート', '東京ドームホテル', 'EPSON',
+        '南島原・天草 観光PR動画', 'KG高等学園', '鍛高譚／合同酒精' ] },
+      { title: 'SNSショートドラマ', items: ['僕らの恋はかくれんぼ。', '金融女子が沼すぎる!?'] }
     ]
   },
   {
@@ -72,6 +82,7 @@ const FEMALES = [
     height: 163.5, size: 'B 79cm / W 60cm / H 86cm',
     shoe: '24.0cm', clothesSize: '7号', hairColor: 'ロング・ダークブラウン',
     exp: NA, location: '東京都',
+    extra: [['爪・ピアス', '素爪・ピアスなし']],
     achievementTitle: '出演実績',
     achievementSections: [
       { title: 'ブライダル', items: [
@@ -99,28 +110,26 @@ const FEMALES = [
   {
     id: 'yuna', name: 'ゆな', age: 29,
     height: 160, size: 'B 70cm / W 68cm / H 88cm',
-    shoe: '24.0cm', clothesSize: '5・6号', exp: NA, location: '大阪府',
+    shoe: '24.0cm', clothesSize: 'ドレス 5・6号', exp: NA, location: '大阪府',
+    extra: [['ピアス', '穴なし']],
     achievementTitle: 'ブライダル実績',
-    achievementSections: [
-      { title: 'スケジュール', items: ['9/8・9/9 両日、前泊・中日泊とも対応可能'] },
-      { title: 'ブライダル実績', items: [
-        '【2024年】ポップコーン神戸／オルガブランカ（展示会モデル）／ラヴァンセーヌ／アンテリーベ／309wedding／nestbythesea／レイジーシンデレラ',
-        '【2025年】スポサブランカ',
-        '【2026年】幸三郎ウエディング（展示会モデル）／ひよしや／丸福衣装店' ] }
+    achievements: [
+      '【2024年】ポップコーン神戸／オルガブランカ（展示会モデル）／ラヴァンセーヌ／アンテリーベ／309wedding／nestbythesea／レイジーシンデレラ',
+      '【2025年】スポサブランカ',
+      '【2026年】幸三郎ウエディング（展示会モデル）／ひよしや／丸福衣装店'
     ]
   },
   {
     id: 'yurina', name: 'ゆりな', age: 24,
     height: 168, size: NA, shoe: null, exp: NA, location: '東京都（兵庫県神戸市出身）',
+    extra: [['体重', '45kg']],
     achievementTitle: '実績',
-    achievementSections: [
-      { title: 'スケジュール', items: ['9/8・9/9 両日、前泊・中日泊とも対応可能'] },
-      { title: '実績', items: ['wabiwasou', 'platinum dress style', 'studio arc', 'faccie ウェディング', 'FORTE BRIDAL'] }
-    ]
+    achievements: ['wabiwasou', 'platinum dress style', 'studio arc', 'faccie ウェディング', 'FORTE BRIDAL']
   },
   {
     id: 'fumika', name: 'ふみか', age: 25,
     height: 155, size: NA, shoe: null, exp: NA, location: '埼玉県',
+    extra: [['体重', '42kg']],
     achievementTitle: '実績',
     achievements: ['ces wedding', 'Enn wedding', 'Ksmily', 'nouvelle Photo wedding']
   },
@@ -132,7 +141,8 @@ const FEMALES = [
   {
     id: 'sky', name: 'スカイ', age: 26,
     height: 160, size: 'B 78cm / W 58cm / H 86cm',
-    shoe: '23.5cm', clothesSize: 'ドレス5〜7号／指輪8号', exp: 6, location: '東京都↔大阪府（大阪府出身）',
+    shoe: '23.5cm', clothesSize: 'ドレス 5〜7号／指輪 8号', exp: 6, location: '東京都↔大阪府（大阪府出身）',
+    extra: [['体重', '44kg']],
     achievementTitle: 'モデル活動実績',
     achievementSections: [
       { title: 'ブライダルモデル活動実績', items: [
@@ -158,6 +168,7 @@ const MALES = [
   {
     id: 'kouki', name: 'こうき（岡山幸樹）', age: 33,
     height: 177, size: NA, shoe: null, exp: NA, location: NA,
+    extra: [['体重', '63kg']],
     achievementTitle: '実績',
     achievementSections: [
       { title: '実績【ブライダル】', items: [
@@ -181,6 +192,7 @@ const MALES = [
     id: 'ryoma', name: 'りょうま（Ryoma）', age: 30,
     height: 176, size: 'B 84cm / W 81cm / H 95cm',
     shoe: '27.0cm', clothesSize: 'Y5', exp: NA, location: '横浜市',
+    extra: [['体重', '63kg'], ['利き手', '右']],
     achievementTitle: '実績',
     achievementSections: [
       { title: 'サイズ詳細', items: [
@@ -213,24 +225,30 @@ const MALES = [
     height: 175, size: 'B 82cm / W 73cm / H 89cm',
     shoe: '27.0cm', clothesSize: 'タキシード Y帯6号／A帯4号', exp: NA,
     location: '東京都世田谷区（埼玉県出身）',
-    achievementTitle: '実績【ブライダル】（新郎役／記載外はブライズメイド等）',
-    achievements: [
-      'ワタベウェディング芝公園スタジオ', 'Lucis Wedding 上野東天紅（2020・21）', 'White Wall Wedding',
-      '松浦衣裳店（名古屋）', 'torutokoya photo&movie（2020・21）', '大国魂神社', 'アールベルアンジェ仙台',
-      'フォレスターナ軽井沢（ブライズメイド）', 'マリエール諏訪（ブライズメイド）',
-      '品川プリンスホテル Chapel TENKEI&MARRY（ブライズメイド・2021年）', 'スタジオアクア大宮',
-      '大国魂神社 模擬挙式', 'STUDIO ZERO YOKOHAMA（2022年）',
-      "ホットペッパーウェディング 三井ガーデンホテル銀座プレミア E'VOLTA", 'ノートルダム横浜みなとみらい',
-      'モントレ仙台', 'ワタベウェディング沖縄（2023年）', 'フォトメゾンエクラン 福岡／大阪／名古屋',
-      'ベルヴィ ラヴァンセーヌ静岡', 'ヴェルディ宇都宮', 'ノートルダム宇部山口（2024年）', '乃木会館',
-      'マナーハウス写風館（守山）／マナーヴィレッジ写風館（米原）', 'アジュール竹芝',
-      'モモナ横浜関内店 フォトウェディング', 'A&T WEDDING', 'SWITCH WEDDING TOKYO', 'ベルクラシック神戸'
+    extra: [['体重', '60kg']],
+    achievementTitle: '実績',
+    achievementSections: [
+      { title: 'サイズ詳細', items: [
+        '首周り38cm', '手長／手幅 19.5cm／9cm',
+        'リングサイズ：人差し指19号／薬指15号／左中指20号' ] },
+      { title: '実績【ブライダル】（新郎役／記載外はブライズメイド等）', items: [
+        'ワタベウェディング芝公園スタジオ', 'Lucis Wedding 上野東天紅（2020・21）', 'White Wall Wedding',
+        '松浦衣裳店（名古屋）', 'torutokoya photo&movie（2020・21）', '大国魂神社', 'アールベルアンジェ仙台',
+        'フォレスターナ軽井沢（ブライズメイド）', 'マリエール諏訪（ブライズメイド）',
+        '品川プリンスホテル Chapel TENKEI&MARRY（ブライズメイド・2021年）', 'スタジオアクア大宮',
+        '大国魂神社 模擬挙式', 'STUDIO ZERO YOKOHAMA（2022年）',
+        "ホットペッパーウェディング 三井ガーデンホテル銀座プレミア E'VOLTA", 'ノートルダム横浜みなとみらい',
+        'モントレ仙台', 'ワタベウェディング沖縄（2023年）', 'フォトメゾンエクラン 福岡／大阪／名古屋',
+        'ベルヴィ ラヴァンセーヌ静岡', 'ヴェルディ宇都宮', 'ノートルダム宇部山口（2024年）', '乃木会館',
+        'マナーハウス写風館（守山）／マナーヴィレッジ写風館（米原）', 'アジュール竹芝',
+        'モモナ横浜関内店 フォトウェディング', 'A&T WEDDING', 'SWITCH WEDDING TOKYO', 'ベルクラシック神戸' ] }
     ]
   },
   {
     id: 'ogawa', name: 'ゆうき（小川友暉）', age: 28,
     height: 181, size: 'B 84.5cm / W 79cm / H 93cm',
     shoe: '27.5cm', exp: NA, location: '東京都（福岡県北九州出身）',
+    extra: [['体重', '64kg']],
     achievementTitle: '実績',
     achievementSections: [
       { title: '実績【広告】（すべてメインキャスト出演）', items: [
@@ -406,6 +424,16 @@ function renderLightbox() {
   if (m.hairColor) { specHair.style.display = ''; $('#lbHair').textContent = m.hairColor; } else { specHair.style.display = 'none'; }
   if (m.eyeColor)  { specEye.style.display = '';  $('#lbEye').textContent = m.eyeColor; }  else { specEye.style.display = 'none'; }
   if (m.clothesSize) { specClothes.style.display = ''; $('#lbClothes').textContent = m.clothesSize; } else { specClothes.style.display = 'none'; }
+
+  // 追加プロフィール項目（体重・運転免許・利き手・ピアス等）
+  document.querySelectorAll('.spec.extra-spec').forEach(e => e.remove());
+  const specsBox = document.querySelector('.specs');
+  (m.extra || []).forEach(([label, val]) => {
+    const d = document.createElement('div');
+    d.className = 'spec extra-spec';
+    d.innerHTML = `<div class="spec-l">${label}</div><div class="spec-v">${val}</div>`;
+    specsBox.appendChild(d);
+  });
 
   const avail = AVAILABILITY[m.id] || [];
   const schedSection = $('#lbSchedule');
