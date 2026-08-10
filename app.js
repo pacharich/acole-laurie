@@ -2,234 +2,262 @@
 // 候補日が確定したら SCHEDULE_DATES に日付を追加し、
 // AVAILABILITY にモデルごとの出欠（'ok' | 'ng' | 'pending'）を入れると自動表示されます。
 const SCHEDULE_DATES = [];
-
-const AVAILABILITY = {
-  // 例: mio: SCHEDULE_DATES.map(date => ({ date, status: 'pending' })),
-};
+const AVAILABILITY = {};
 
 const PLACEHOLDER = '情報待ち';
+const NA = '—';
 
 // ============ Model Data ============
-// 新婦役モデル
+// 新婦役モデル（PDF「アコールローリエ 撮影候補モデル資料（新婦役）」準拠）
 const FEMALES = [
   {
     id: 'mio', name: 'ミオ', age: 33,
     height: 153, size: 'B 82cm / W 55cm / H 86cm',
-    shoe: '22.5cm', exp: PLACEHOLDER, location: '東京都',
+    shoe: '22.5cm', exp: NA, location: '東京都（石川県出身）',
     achievementTitle: '出演経歴・実績',
     achievementSections: [
-      {
-        title: '出演経歴',
-        items: [
-          "MicheBloomin' PR", '9unq（クアンク）PR', 'PLACOLE & DRESSY',
-          'Regression クレイマスク', 'Eclat Charme', '東京ミッドタウン八重洲',
-          '東京プリンスホテル', 'Afternoon Tea'
-        ]
-      },
-      {
-        title: '雑誌掲載',
-        items: ['美人百花', 'non-no', 'anan']
-      },
-      {
-        title: '舞台・広告モデル 等',
-        items: ['舞台 ガンバの冒険', '翼を下さい', 'アラビアンナイト']
-      },
-      {
-        title: '映画・ドラマ',
-        items: [
-          'ネバーダンス（佐藤克則 監督）',
-          '夢の中へ（宮崎彩代 監督／女優賞）',
-          'お姫様になりたくて（川地廣和 監督）',
-          '恋に至る病（木村承子 監督）',
-          '世にも奇妙な物語（生徒役）'
-        ]
-      },
-      {
-        title: '企業PV',
-        items: ['Panasonic', 'KDDI']
-      }
+      { title: '出演経歴', items: [
+        "MicheBloomin' PR", '9unq（クアンク）PR', 'PLACOLE & DRESSY',
+        'Regression クレイマスク', 'Eclat Charme', '東京ミッドタウン八重洲',
+        '東京プリンスホテル', 'Afternoon Tea' ] },
+      { title: '雑誌掲載', items: ['美人百花', 'non-no', 'anan'] },
+      { title: '舞台', items: ['ガンバの冒険', '翼を下さい', 'アラビアンナイト'] },
+      { title: '映画', items: [
+        'ネバーダンス（佐藤克則 監督）', '夢の中へ（宮崎彩代 監督／女優賞）',
+        'お姫様になりたくて（川地廣和 監督）', '恋に至る病（木村承子 監督）' ] },
+      { title: 'ドラマ', items: ['世にも奇妙な物語（生徒役）'] },
+      { title: '企業PV', items: ['Panasonic', 'KDDI'] }
     ]
   },
   {
     id: 'maika', name: 'マイカ', age: 29,
-    height: 154, size: PLACEHOLDER,
-    shoe: '22.5cm', exp: PLACEHOLDER, location: '東京都',
+    height: 154, size: NA,
+    shoe: '22.5cm', exp: NA, location: '東京都（千葉県出身）',
     achievementTitle: '出演歴',
     achievementSections: [
-      {
-        title: 'ドラマ',
-        items: [
-          'CX 月9「5→9 私に恋したお坊さん」',
-          'EX「ハケン占い師アタル」',
-          'TX「牙狼-GARO- 魔戒烈伝」'
-        ]
-      },
-      {
-        title: 'バラエティ',
-        items: [
-          'CX「痛快TVスカッとジャパン」4度出演',
-          'TOKAIケーブルネットワーク「田中律子の旅するSUP」2年レギュラー',
-          '「直撃！シンソウ坂上」'
-        ]
-      },
-      {
-        title: '映画',
-        items: ['トモダチゲーム', '海にうかぶ月', '志乃ちゃんは自分の名前が言えない', '友だちのパパがすき']
-      },
-      {
-        title: 'CM',
-        items: ['ソフトバンク', 'HONDA（Web）', 'GungHo']
-      },
-      {
-        title: '舞台',
-        items: ['「-Knights- アーサー王と円卓の騎士」2年連続']
-      },
-      {
-        title: 'MV',
-        items: ['ASIAN KUNG-FU GENERATION「オペラグラス」']
-      }
+      { title: 'ドラマ', items: [
+        'CX 月9「5→9 私に恋したお坊さん」', 'EX「ハケン占い師アタル」',
+        'TX「牙狼-GARO- 魔戒烈伝」' ] },
+      { title: 'バラエティ', items: [
+        'CX「痛快TVスカッとジャパン」4度出演', 'TOKAIケーブルネットワーク',
+        '「田中律子の旅するSUP」2年レギュラー', '「直撃！シンソウ坂上」' ] },
+      { title: '映画', items: ['トモダチゲーム', '海にうかぶ月', '志乃ちゃんは自分の名前が言えない', '友だちのパパがすき'] },
+      { title: 'CM', items: ['ソフトバンク', 'HONDA（Web）', 'GungHo'] },
+      { title: '舞台', items: ['「-Knights- アーサー王と円卓の騎士」2年連続'] },
+      { title: 'MV', items: ['ASIAN KUNG-FU GENERATION「オペラグラス」'] }
     ]
   },
   {
     id: 'kano', name: 'カノ', age: 29,
     height: 157, size: 'B 70cm / W 55cm / H 82cm',
-    shoe: '23.0cm', exp: PLACEHOLDER, location: '大阪府',
+    shoe: '23.0cm', exp: NA, location: '大阪府（愛知県出身）',
     achievementTitle: '主な出演歴・実績',
     achievementSections: [
-      {
-        title: 'ブライダル',
-        items: [
-          'STATICE PHOTOGRAPHY', 'PHOTO STUDIO 麗', '阿部写真館',
-          'THE PACIFIC HARBOR', 'ブライダルコアときわ', 'POPCORN KOBE',
-          'STUDIO ARC', '着物くろーぜっと JuJu', 'ホテルロイヤルクラシック大阪'
-        ]
-      },
-      {
-        title: '広告（スチール）',
-        items: [
-          'NAZUNA', 'Hana Musubi', '花と蝶〜fleur papillon〜', 'toiki', 'ojnn',
-          'CYBER PUNK PHOTO SUMMIT', 'OKURU.', 'DR PLANT', 'may.B',
-          'DearMyLoveRose', 'kirakurai'
-        ]
-      },
-      {
-        title: '広告（ムービー）',
-        items: ['HOTEL SHE 泊まれる演劇', '宝塚市国際環境協会 ナチュールスパ宝塚']
-      },
-      {
-        title: '雑誌掲載・その他',
-        items: [
-          'ar 2023年9月号', 'Hair Magazine yes vol.10', 'sweet 2024年9月号',
-          'HELLOO MY NAME IS… SNS広告担当（2023/10〜）',
-          'フォトグラファー伊坂謙 様 ライティングワークショップ モデル'
-        ]
-      }
+      { title: 'ブライダル', items: [
+        'STATICE PHOTOGRAPHY', 'PHOTO STUDIO 麗', '阿部写真館', 'THE PACIFIC HARBOR',
+        'ブライダルコアときわ', 'POPCORN KOBE', 'STUDIO ARC', '着物くろーぜっと JuJu',
+        'ホテルロイヤルクラシック大阪' ] },
+      { title: '広告（スチール）', items: [
+        'NAZUNA', 'Hana Musubi', '花と蝶〜fleur papillon〜', 'toiki', 'ojnn',
+        'CYBER PUNK PHOTO SUMMIT', 'OKURU.', 'DR PLANT', 'may.B', 'DearMyLoveRose', 'kirakurai' ] },
+      { title: '広告（ムービー）', items: ['HOTEL SHE 泊まれる演劇', '宝塚市国際環境協会 ナチュールスパ宝塚'] },
+      { title: '雑誌掲載・その他', items: [
+        'ar 2023年9月号', 'Hair Magazine yes vol.10', 'sweet 2024年9月号',
+        'HELLOO MY NAME IS… SNS広告担当（2023/10〜）',
+        'フォトグラファー伊坂謙 様 ライティングワークショップ モデル' ] }
     ]
   },
   {
-    id: 'nakamura', name: '中村恵利華', age: 26,
+    id: 'nakamura', name: 'エリカ（中村恵利華）', age: 26,
     height: 163.5, size: 'B 79cm / W 60cm / H 86cm',
     shoe: '24.0cm', clothesSize: '7号', hairColor: 'ロング・ダークブラウン',
-    exp: 5, location: '東京都',
+    exp: NA, location: '東京都',
     achievementTitle: '出演実績',
     achievementSections: [
-      {
-        title: '広告',
-        items: [
-          'Microsoft Surface「サがつく、Surface」映像広告',
-          'SHIMBOL モニターレコーダー 紹介映像',
-          '静岡県 南伊豆町 観光PR映像',
-          '吉野家 TikTok用映像広告',
-          'オンディーヌ 振袖広告',
-          '味の素「0.1gのチャレンジ」Web用映像広告',
-          'ヒルトン東京ベイ 屋外プール プロモーション映像',
-          'SmallRig SNS用映像広告',
-          'SAKURA TOKYO 着物・浴衣広告',
-          '眼鏡市場 Web用広告',
-          'ReFa Web用広告',
-          'Walkerplus／キャラWalker Web記事レポーター',
-          'OMO7横浜 by 星野リゾート ルーフトップイベント イメージ広告',
-          'JTBショッピング Refeela イメージ広告',
-          'A．LIFE 卒業振袖専門店 MARUTAMA',
-          'nifty colors 傘・日傘・レインコート 広告',
-          'SOLSHADE 日傘・折りたたみ傘 広告',
-          'bon bonheur 鞄・リュックサック イメージ広告',
-          'リクルートスタッフィング イメージ広告'
-        ]
-      },
-      {
-        title: 'アパレル',
-        items: [
-          'Joint Space Webサイトコーディネート',
-          'MARK STYLER スタイルコーディネート',
-          'Leyline イメージモデル',
-          '株式会社アサクラ ドリードール スタイルコーディネート',
-          'Cherir Mignon',
-          'Elishe Holiday Collection'
-        ]
-      },
-      {
-        title: 'ショー・イベント',
-        items: [
-          'TGC SHIZUOKA 2023',
-          'TRUNK HOTEL ブライダルショー',
-          'ホテル雅叙園 模擬結婚式（花嫁役）',
-          'ANA クラウンプラザホテル富山 模擬結婚式（花嫁役）',
-          'CP＋2026'
-        ]
-      },
-      {
-        title: 'ブライダル',
-        items: [
-          'NOUVELLE', 'CLAIRE BRIDAL STUDIO', 'FLARE 横浜元町本店',
-          'アンジェリカ・ノートルダム（大阪）', 'アールベルアンジェ奈良（奈良）',
-          'ララ・マリー（山口）', 'STUDIO ARC（神奈川）',
-          'ホテルサンライフガーデン（神奈川）', 'ANA クラウンプラザホテル富山',
-          'エルシオンKISARAZU（千葉）', 'ザ・チェルシーコートおゆみ野ガーデン（千葉）',
-          'ザ テンダーハウスウエディング', 'ワタベウェディング',
-          'wa-bi', 'faccie ウエディング', 'tetowa', 'torutokoya', 'アトリエゆか'
-        ]
-      },
-      {
-        title: '雑誌',
-        items: [
-          '小学館『CanCam』', '主婦の友社『Ray』', 'ハースト婦人画報社『25ans』',
-          'ネコ・パブリッシング『大人の愛されヘアカタログ』', '晋遊舎『リアルオーダーヘアブック』'
-        ]
-      },
-      {
-        title: 'MV出演',
-        items: ['Blue Purple「Night Queen」']
-      }
+      { title: 'ブライダル', items: [
+        'NOUVELLE', 'CLAIRE BRIDAL STUDIO', 'FLARE 横浜元町本店', 'アンジェリカ・ノートルダム（大阪）',
+        'アールベルアンジェ奈良（奈良）', 'ララ・マリー（山口）', 'STUDIO ARC（神奈川）' ] },
+      { title: '広告', items: [
+        'Microsoft Surface「サがつく、Surface」映像広告', 'SHIMBOL モニターレコーダー 紹介映像',
+        '静岡県 南伊豆町 観光PR映像', '吉野家 TikTok用映像広告', 'オンディーヌ 振袖広告',
+        '味の素「0.1のチャレンジ」Web用映像広告', 'ヒルトン東京ベイ 屋外プール プロモーション映像',
+        'nifty colors 傘・日傘・レインコート 広告', 'SOLSHADE 日傘・折りたたみ傘 広告',
+        'bon bonheur 鞄・リュックサック イメージ広告', 'リクルートスタッフィング イメージ広告' ] },
+      { title: 'アパレル', items: [
+        'Joint Space Webサイトコーディネート', 'MARK STYLER スタイルコーディネート', 'Leyline イメージモデル' ] },
+      { title: 'ショー・イベント', items: [
+        'TRUNK HOTEL ブライダルショー', 'ホテル雅叙園 模擬結婚式（花嫁役）',
+        'ANA クラウンプラザホテル富山 模擬結婚式（花嫁役）', 'CP+2026',
+        'ホテルサンライフガーデン（神奈川）', 'エルシオンKISARAZU（千葉）',
+        'ザ・チェルシーコートおゆみ野ガーデン（千葉）', 'ザ テンダーハウスウエディング', 'ワタベウェディング' ] },
+      { title: '雑誌', items: [
+        '小学館『CanCam』', '主婦の友社『Ray』', 'ハースト婦人画報社『25ans』',
+        'ネコ・パブリッシング『大人の愛されヘアカタログ』', '晋遊舎『リアルオーダーヘアブック』' ] },
+      { title: 'MV出演', items: ['Blue Purple「Night」'] }
+    ]
+  },
+  {
+    id: 'yuna', name: 'ゆな', age: 29,
+    height: 160, size: 'B 70cm / W 68cm / H 88cm',
+    shoe: '24.0cm', clothesSize: '5・6号', exp: NA, location: '大阪府',
+    achievementTitle: 'ブライダル実績',
+    achievementSections: [
+      { title: 'スケジュール', items: ['9/8・9/9 両日、前泊・中日泊とも対応可能'] },
+      { title: 'ブライダル実績', items: [
+        '【2024年】ポップコーン神戸／オルガブランカ（展示会モデル）／ラヴァンセーヌ／アンテリーベ／309wedding／nestbythesea／レイジーシンデレラ',
+        '【2025年】スポサブランカ',
+        '【2026年】幸三郎ウエディング（展示会モデル）／ひよしや／丸福衣装店' ] }
+    ]
+  },
+  {
+    id: 'yurina', name: 'ゆりな', age: 24,
+    height: 168, size: NA, shoe: null, exp: NA, location: '東京都（兵庫県神戸市出身）',
+    achievementTitle: '実績',
+    achievementSections: [
+      { title: 'スケジュール', items: ['9/8・9/9 両日、前泊・中日泊とも対応可能'] },
+      { title: '実績', items: ['wabiwasou', 'platinum dress style', 'studio arc', 'faccie ウェディング', 'FORTE BRIDAL'] }
+    ]
+  },
+  {
+    id: 'fumika', name: 'ふみか', age: 25,
+    height: 155, size: NA, shoe: null, exp: NA, location: '埼玉県',
+    achievementTitle: '実績',
+    achievements: ['ces wedding', 'Enn wedding', 'Ksmily', 'nouvelle Photo wedding']
+  },
+  {
+    id: 'yui', name: 'ゆい', age: PLACEHOLDER,
+    height: 157, size: PLACEHOLDER, shoe: null, exp: PLACEHOLDER, location: PLACEHOLDER,
+    achievementTitle: '実績', achievements: ['プロフィール・実績は回答待ち（追って共有予定）']
+  },
+  {
+    id: 'sky', name: 'スカイ', age: 26,
+    height: 160, size: 'B 78cm / W 58cm / H 86cm',
+    shoe: '23.5cm', clothesSize: 'ドレス5〜7号／指輪8号', exp: 6, location: '東京都↔大阪府（大阪府出身）',
+    achievementTitle: 'モデル活動実績',
+    achievementSections: [
+      { title: 'ブライダルモデル活動実績', items: [
+        'JRクレメントホテル高松', 'ONELIFE 横浜', 'スタジオゼロ（宇治・長堀橋・岡山・奈良・堺）',
+        'スタジオアーク', 'フォレストテラス熊本', 'レイジーシンデレラ', '欅', 'THE SORAKUEN',
+        'スタジオアンルージュ', 'ワタベウェディング', 'カサデアンジェラ馬車道', 'FANTADRESS',
+        'ハルウェディング', 'ベルクラシック姫路', '東京ステーションホテル', 'STELLA BRIDAL 等' ] },
+      { title: 'その他モデル活動実績', items: [
+        '今ちゃんの実は…TV出演／ええじゃないか TV出演／ブルーメの丘 PV出演',
+        'あべのハルカス WEB広告／ザ プリンスパークタワーホテル 広告／ホテルリリーフなんば大国町 広告',
+        'REFA 登壇モデル／ENAMOR 登壇モデル',
+        'ミルボン スタイリング剤パンフ広告／サンコール スタイリング剤パンフ広告',
+        'PREPPY 雑誌掲載／SAVVY 雑誌掲載／リアルオーダーヘアブック 雑誌掲載多数',
+        'ホットペッパービューティー 雑誌掲載多数',
+        'メルセデスベンツ広告／眼鏡市場広告／SANGO株式会社 企業PV',
+        'ソフィーナ／ナリス／ジョンセンムル／松風／VO5／MEDULLA 等' ] }
     ]
   }
 ];
 
-// 新郎役モデル（プロフィール・実績は情報待ち）
+// 新郎役モデル（PDF「アコールローリエ 撮影候補モデル資料（新郎役）」準拠）
 const MALES = [
   {
-    id: 'ryan', name: 'ライアン', age: PLACEHOLDER,
-    height: PLACEHOLDER, size: PLACEHOLDER, shoe: PLACEHOLDER,
-    exp: PLACEHOLDER, location: PLACEHOLDER,
-    achievementTitle: '実績', achievements: [PLACEHOLDER]
+    id: 'kouki', name: 'こうき（岡山幸樹）', age: 33,
+    height: 177, size: NA, shoe: null, exp: NA, location: NA,
+    achievementTitle: '実績',
+    achievementSections: [
+      { title: '実績【ブライダル】', items: [
+        'torutokoya', '帝国ホテル東京 ブライダルフェアモデル', 'ホテル日航大阪 ブライダルフェアモデル',
+        'studio ARC', 'パビリオンコート京都', 'ヒカリヤ ウェディング', 'Satoyama Villa 本陣',
+        'A&T Wedding', 'オークラアクトシティ浜松', '小林写真館', 'プリンセスガーデン横浜',
+        'クレールブライダルスタジオ', 'アメイジンググレイス前橋', '星野リゾート／リゾナーレ八ヶ岳', '他多数' ] },
+      { title: '実績【広告】', items: [
+        'アメリカン・エキスプレス・ジャパン', 'MUJI HOTEL GINZA', 'JTB×SHIPS「チル旅 長野木曽福島編」',
+        'CEZANNE', 'ネスレ日本株式会社', 'タカラトミー ポケモン', 'LIXIL ランドリープラス' ] },
+      { title: '実績【WEB】', items: [
+        'こくみん共済COOP', 'Yahoo！きっず', 'はなさく生命', '楽天でんき', '双日テックイノベーション',
+        'カーセンサー×日産 SOTOASOBI' ] },
+      { title: '実績【CM】', items: [
+        'HIS 夏先ドリキャンペーン2026 TV-CM', '東京都環境局「便利でECoシェアサイクル」TV-CM',
+        'GoodsLuck! TV-CM', '日本工営株式会社 TV-CM', 'MUFG×Salesforce Web-CM',
+        '東京都主税局 Web-CM', 'LIFULL AIホームズくん Web-CM' ] }
+    ]
   },
   {
-    id: 'ryoma', name: 'リョウマ', age: PLACEHOLDER,
-    height: PLACEHOLDER, size: PLACEHOLDER, shoe: PLACEHOLDER,
-    exp: PLACEHOLDER, location: PLACEHOLDER,
-    achievementTitle: '実績', achievements: [PLACEHOLDER]
+    id: 'ryoma', name: 'りょうま（Ryoma）', age: 30,
+    height: 176, size: 'B 84cm / W 81cm / H 95cm',
+    shoe: '27.0cm', clothesSize: 'Y5', exp: NA, location: '横浜市',
+    achievementTitle: '実績',
+    achievementSections: [
+      { title: 'サイズ詳細', items: [
+        '頭まわり56cm／首まわり38cm／着丈49cm／肩幅40cm／袖丈59cm',
+        'バスト84cm／ウエスト81cm／ヒップ95cm',
+        'ひじ丈28cm／手首16cm／股上24cm／股下82cm',
+        '手のひら 右17.5cm・左18cm／腕回り 右25cm・左25cm',
+        '太腿51cm／ひざ丈53cm／ゆき丈80cm',
+        '靴27cm／服 Y5／Tシャツ M／ジーンズ 31インチ',
+        '指輪 右：薬指14号・小指7号／左：薬指13号・小指9号' ] },
+      { title: '実績【ブライダル・ゼクシィ】（新郎役）', items: [
+        'ホテル ザ・テラス ザ・ガーデン水戸（茨城）', 'マリーゴールドプルミエ（鳥栖）',
+        'ウェディングコートエミリア（山口）', 'リバティ ウエディングアプロッシュ（大分）',
+        'マリエール神水苑（熊本）', 'マリーゴールドプルミエ（佐賀）', 'アーセンティア迎賓館（大阪）',
+        'A&T wedding', 'レンブラントホテル', '新百合ヶ丘ホテルモリノ', 'チッタ ウェディング川崎（神奈川）',
+        'ブラスブルー目白', 'ラ クラリエール三鷹の森', 'ロイヤルパインズホテル浦和', 'recipe 名古屋', '他多数' ] },
+      { title: '実績【広告・PV】', items: [
+        'オリエンタルホテル福岡', 'リッチモンドホテル宮崎', 'おふろの王様 広告', '穴吹ハウジングサービス',
+        'タイクレ', 'モンハンNOW', '他多数' ] },
+      { title: '実績【TVCM】', items: [
+        'アルプス技研', 'Lenovo', 'good不動産', '霧島酒造株式会社',
+        'ガンダムシリーズアパレル「strict-g」', 'イトシマレモネード', '奉行クラウド' ] },
+      { title: '実績【ファッションモデル】', items: [
+        'PRADA／mac-house／converse／harvesty／strict-g／my day',
+        '薬王堂 コラボTシャツ／ZOZOタウン 他多数', 'スチールモデル多数' ] }
+    ]
   },
   {
-    id: 'ogawa', name: 'オガワ', age: PLACEHOLDER,
-    height: PLACEHOLDER, size: PLACEHOLDER, shoe: PLACEHOLDER,
-    exp: PLACEHOLDER, location: PLACEHOLDER,
-    achievementTitle: '実績', achievements: [PLACEHOLDER]
+    id: 'ryan', name: 'ライアン', age: NA,
+    height: 175, size: 'B 82cm / W 73cm / H 89cm',
+    shoe: '27.0cm', clothesSize: 'タキシード Y帯6号／A帯4号', exp: NA,
+    location: '東京都世田谷区（埼玉県出身）',
+    achievementTitle: '実績【ブライダル】（新郎役／記載外はブライズメイド等）',
+    achievements: [
+      'ワタベウェディング芝公園スタジオ', 'Lucis Wedding 上野東天紅（2020・21）', 'White Wall Wedding',
+      '松浦衣裳店（名古屋）', 'torutokoya photo&movie（2020・21）', '大国魂神社', 'アールベルアンジェ仙台',
+      'フォレスターナ軽井沢（ブライズメイド）', 'マリエール諏訪（ブライズメイド）',
+      '品川プリンスホテル Chapel TENKEI&MARRY（ブライズメイド・2021年）', 'スタジオアクア大宮',
+      '大国魂神社 模擬挙式', 'STUDIO ZERO YOKOHAMA（2022年）',
+      "ホットペッパーウェディング 三井ガーデンホテル銀座プレミア E'VOLTA", 'ノートルダム横浜みなとみらい',
+      'モントレ仙台', 'ワタベウェディング沖縄（2023年）', 'フォトメゾンエクラン 福岡／大阪／名古屋',
+      'ベルヴィ ラヴァンセーヌ静岡', 'ヴェルディ宇都宮', 'ノートルダム宇部山口（2024年）', '乃木会館',
+      'マナーハウス写風館（守山）／マナーヴィレッジ写風館（米原）', 'アジュール竹芝',
+      'モモナ横浜関内店 フォトウェディング', 'A&T WEDDING', 'SWITCH WEDDING TOKYO', 'ベルクラシック神戸'
+    ]
   },
   {
-    id: 'tbd', name: '選定中', age: PLACEHOLDER,
-    height: PLACEHOLDER, size: PLACEHOLDER, shoe: PLACEHOLDER,
-    exp: PLACEHOLDER, location: PLACEHOLDER,
-    achievementTitle: '実績', achievements: ['選定中（決定次第ご案内いたします）']
+    id: 'ogawa', name: 'ゆうき（小川友暉）', age: 28,
+    height: 181, size: 'B 84.5cm / W 79cm / H 93cm',
+    shoe: '27.5cm', exp: NA, location: '東京都（福岡県北九州出身）',
+    achievementTitle: '実績',
+    achievementSections: [
+      { title: '実績【広告】（すべてメインキャスト出演）', items: [
+        'JCB／オーディオテクニカ／クラシエ／木下グループ／創建ルナシティ',
+        'サムスン電子ジャパン／トランスコスモス／キットカット／プティマイン',
+        '福田アンドパートナーズ／タクトホーム／富士フイルム',
+        'モビリティリゾートもてぎ／ポーラ ルジャパン／ジャクリジャパン／横浜マリンタワー など' ] },
+      { title: '実績【舞台】', items: [
+        '「酔いどれ天使」演出：三池崇史／脚本：蓬莱竜太（東京公演/明治座 2021.9.5〜20、大阪公演/新歌舞伎座 2021.10.1〜11）',
+        '「うちの担任絶対スパイ」松原 魅次役（品川六行会ホール 2023.10）' ] },
+      { title: '実績【映画】', items: [
+        '「第8番 悲愴」近衛 風役・近衛 陽役（渡邉豊 監督）2024',
+        '「東京リベンジャーズ」（英勉 監督）2021.7' ] },
+      { title: '実績【ドラマ】', items: [
+        'サントフェリーチェ掛川 オリジナルドラマ ゆうき役', 'ル・クレア オリジナルドラマ 健太役',
+        '横浜ロイヤルオークホテル オリジナルドラマ 主演', 'テレビ埼玉「3つのルール」島津健一役',
+        'TBS「その恋あたためますか？」バスケ少年役' ] },
+      { title: '実績【MV作品】', items: [
+        'がらり「正体不明のLADY」／ISAMIKAWAMURA「幸せの道」／シェルミィ「バイバイ」',
+        'ハイエナカー「とけないハート」／釈迦坊主「loess」／YMCK「ご安全に」' ] },
+      { title: '実績【ブライダル・ゼクシィ】（すべて新郎役）', items: [
+        'ホテルオークラ東京／アウトリガーリーフ（Hawaii）／ホテル雅叙園東京／ホテル椿山荘東京',
+        'ウェスティンホテル横浜／サンシャイン水族館／東京大神宮／マリエール広島／アソシア静岡',
+        'FURIAN山ノ上迎賓館／JRホテルクレメント徳島／ヒカリフルコート高崎／ロイヤルチェスター太田',
+        'ベルブランシェ天童／リーガロイヤルホテル京都／シェラトン東京ベイ／キングアンバサダー熊谷',
+        '横浜ロイヤルパークホテル／ホテルメトロポリタン盛岡／ダイワロイネットホテル和歌山／ノートルダムマリノア など' ] }
+    ]
   }
 ];
 
@@ -245,15 +273,11 @@ function getPhotos(m) {
   const genderKey = currentTab === 'female' ? 'female' : 'male';
   return (PHOTO_DATA[genderKey] && PHOTO_DATA[genderKey][m.id]) || [];
 }
+function photoSrc(photo) { return 'data:image/jpeg;base64,' + photo.b64; }
 
-function photoSrc(photo) {
-  return 'data:image/jpeg;base64,' + photo.b64;
-}
-
-// 数値なら単位付き、文字列（情報待ち等）ならそのまま
 function heightDisp(h) { return typeof h === 'number' ? h + 'cm' : h; }
 function ageDisp(a)    { return typeof a === 'number' ? a + '歳' : a; }
-function expDisp(e)    { return typeof e === 'number' ? e + '年' : (e != null ? e : 'なし'); }
+function expDisp(e)    { return typeof e === 'number' ? e + '年' : (e != null ? e : '—'); }
 
 // ============ Grid render ============
 function buildCard(m, i, gender) {
@@ -273,8 +297,7 @@ function buildCard(m, i, gender) {
     <div class="card-photo">
       ${firstPhoto
         ? `<img class="card-img" src="${photoSrc(firstPhoto)}" alt="${m.name}" loading="lazy">`
-        : '<div class="card-img-empty"></div>'
-      }
+        : '<div class="card-img-empty"></div>'}
       <span class="card-no">${numLabel}</span>
       <span class="card-photocount">${photoCountLabel}</span>
     </div>
@@ -318,7 +341,6 @@ function openLightbox(idx) {
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
 function closeLightbox() {
   lb.classList.remove('open');
   document.body.style.overflow = '';
@@ -330,7 +352,6 @@ function renderLightbox() {
   const photos = getPhotos(m);
   const photo = photos[lbShot];
 
-  // ---- main image ----
   const main = $('#lbMain');
   main.innerHTML = '';
   if (photo) {
@@ -343,7 +364,6 @@ function renderLightbox() {
     main.innerHTML = '<div style="color:rgba(255,255,255,.4);font-size:13px;letter-spacing:.1em;">写真情報待ち</div>';
   }
 
-  // ---- thumbnail strip ----
   const strip = $('#lbStrip');
   strip.innerHTML = '';
   photos.forEach((p, i) => {
@@ -361,41 +381,32 @@ function renderLightbox() {
     strip.appendChild(thumb);
   });
 
-  // ---- header info ----
   $('#lbId').innerHTML = photos.length
     ? `<span class="accent">${numLabel}</span>&nbsp;／&nbsp;<strong>${String(lbShot + 1).padStart(2, '0')}</strong> / ${photos.length}枚`
     : `<span class="accent">${numLabel}</span>&nbsp;／&nbsp;写真情報待ち`;
 
-  // ---- profile ----
   $('#lbName').innerHTML = typeof m.age === 'number'
-    ? `${m.name} <span class="age">${m.age}歳</span>`
-    : `${m.name}`;
+    ? `${m.name} <span class="age">${m.age}歳</span>` : `${m.name}`;
   $('#lbLoc').textContent = m.location;
-  $('#lbHeight').textContent = typeof m.height === 'number' ? m.height : m.height;
+  $('#lbHeight').textContent = m.height;
   $('#lbHeightUnit').style.display = typeof m.height === 'number' ? '' : 'none';
   $('#lbAge').textContent = m.age;
   $('#lbAgeUnit').textContent = typeof m.age === 'number' ? '歳' : '';
   $('#lbSize').textContent = m.size;
   $('#lbLocSpec').textContent = m.location;
 
-  // shoe
   const specShoe = $('#specShoe');
   if (m.shoe) { specShoe.style.display = ''; $('#lbShoe').textContent = m.shoe; }
   else { specShoe.style.display = 'none'; }
 
-  // exp
   $('#specExp').style.display = '';
   $('#lbExp').textContent = expDisp(m.exp);
 
-  // hair / eye / clothes
-  const specHair = $('#specHair');
-  const specEye = $('#specEye');
-  const specClothes = $('#specClothes');
+  const specHair = $('#specHair'), specEye = $('#specEye'), specClothes = $('#specClothes');
   if (m.hairColor) { specHair.style.display = ''; $('#lbHair').textContent = m.hairColor; } else { specHair.style.display = 'none'; }
   if (m.eyeColor)  { specEye.style.display = '';  $('#lbEye').textContent = m.eyeColor; }  else { specEye.style.display = 'none'; }
   if (m.clothesSize) { specClothes.style.display = ''; $('#lbClothes').textContent = m.clothesSize; } else { specClothes.style.display = 'none'; }
 
-  // 出演可能日
   const avail = AVAILABILITY[m.id] || [];
   const schedSection = $('#lbSchedule');
   if (avail.length) {
@@ -404,47 +415,30 @@ function renderLightbox() {
       const cls   = d.status === 'ok' ? 'avail-ok' : d.status === 'ng' ? 'avail-ng' : 'avail-pending';
       const badge = d.status === 'ok' ? '○' : d.status === 'ng' ? '✕' : '－';
       const label = d.status === 'ok' ? '出演可' : d.status === 'ng' ? '出演不可' : '未定';
-      return `
-        <div class="avail-card ${cls}">
-          <span class="avail-date">${d.date}</span>
-          <span class="avail-badge">${badge}</span>
-          <span class="avail-label">${label}</span>
-        </div>
-      `;
+      return `<div class="avail-card ${cls}"><span class="avail-date">${d.date}</span><span class="avail-badge">${badge}</span><span class="avail-label">${label}</span></div>`;
     }).join('');
-  } else {
-    schedSection.style.display = 'none';
-  }
+  } else { schedSection.style.display = 'none'; }
 
-  // achievements
   const achSection = $('#lbAchievements');
   if (m.achievementSections && m.achievementSections.length) {
     achSection.style.display = '';
     $('#lbAchTitle').textContent = m.achievementTitle || '活動実績';
     $('#lbAchList').innerHTML = m.achievementSections.map(sec => `
       <li class="ach-section-title">${sec.title}</li>
-      ${sec.items.map(a => `<li>${a}</li>`).join('')}
-    `).join('');
+      ${sec.items.map(a => `<li>${a}</li>`).join('')}`).join('');
   } else if (m.achievements && m.achievements.length) {
     achSection.style.display = '';
     $('#lbAchTitle').textContent = m.achievementTitle || '実績';
     const noteHtml = m.achievementNote ? `<li class="ach-note">${m.achievementNote}</li>` : '';
     $('#lbAchList').innerHTML = noteHtml + m.achievements.map(a => `<li>${a}</li>`).join('');
-  } else {
-    achSection.style.display = 'none';
-  }
+  } else { achSection.style.display = 'none'; }
 
-  // nav buttons
   $('#lbPrev').disabled = lbIdx === 0;
   $('#lbNext').disabled = lbIdx === lbList.length - 1;
 }
 
-$('#lbPrev').addEventListener('click', () => {
-  if (lbIdx > 0) { lbIdx--; lbShot = 0; renderLightbox(); }
-});
-$('#lbNext').addEventListener('click', () => {
-  if (lbIdx < lbList.length - 1) { lbIdx++; lbShot = 0; renderLightbox(); }
-});
+$('#lbPrev').addEventListener('click', () => { if (lbIdx > 0) { lbIdx--; lbShot = 0; renderLightbox(); } });
+$('#lbNext').addEventListener('click', () => { if (lbIdx < lbList.length - 1) { lbIdx++; lbShot = 0; renderLightbox(); } });
 $('#lbClose').addEventListener('click', closeLightbox);
 lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
 
@@ -454,12 +448,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft'  && !$('#lbPrev').disabled) { lbIdx--; lbShot = 0; renderLightbox(); }
   if (e.key === 'ArrowRight' && !$('#lbNext').disabled) { lbIdx++; lbShot = 0; renderLightbox(); }
   if (e.key === 'ArrowUp')   { e.preventDefault(); if (lbShot > 0) { lbShot--; renderLightbox(); } }
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    const photos = getPhotos(lbList[lbIdx]);
-    if (lbShot < photos.length - 1) { lbShot++; renderLightbox(); }
-  }
+  if (e.key === 'ArrowDown') { e.preventDefault(); const ph = getPhotos(lbList[lbIdx]); if (lbShot < ph.length - 1) { lbShot++; renderLightbox(); } }
 });
 
-// ============ Init ============
 renderAllGrids();
