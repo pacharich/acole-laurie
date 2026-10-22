@@ -556,10 +556,12 @@ lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
 document.addEventListener('keydown', e => {
   if (!lb.classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft'  && !$('#lbPrev').disabled) { lbIdx--; lbShot = 0; renderLightbox(); }
-  if (e.key === 'ArrowRight' && !$('#lbNext').disabled) { lbIdx++; lbShot = 0; renderLightbox(); }
-  if (e.key === 'ArrowUp')   { e.preventDefault(); if (lbShot > 0) { lbShot--; renderLightbox(); } }
-  if (e.key === 'ArrowDown') { e.preventDefault(); const ph = getPhotos(lbList[lbIdx]); if (lbShot < ph.length - 1) { lbShot++; renderLightbox(); } }
+  // ←→ 写真切替 ／ ↑↓ モデル切替
+  if (e.key.startsWith('Arrow')) e.preventDefault();
+  if (e.key === 'ArrowUp'  && !$('#lbPrev').disabled) { lbIdx--; lbShot = 0; renderLightbox(); }
+  if (e.key === 'ArrowDown' && !$('#lbNext').disabled) { lbIdx++; lbShot = 0; renderLightbox(); }
+  if (e.key === 'ArrowLeft')   { e.preventDefault(); if (lbShot > 0) { lbShot--; renderLightbox(); } }
+  if (e.key === 'ArrowRight') { e.preventDefault(); const ph = getPhotos(lbList[lbIdx]); if (lbShot < ph.length - 1) { lbShot++; renderLightbox(); } }
 });
 
 renderAllGrids();
